@@ -41,7 +41,7 @@ L’objectif à terme : **pouvoir remplacer complètement Windows**, sans jamais
 | ① | **[PXE Deploy](https://github.com/jonathan-pp/pxe-deploy)** | installer Windows ou Linux par le réseau, tout seul | WDS + MDT | 🟢 fonctionnel |
 | ② | **[Console Annuaire](https://github.com/jonathan-pp/linux-AD)** | serveur de domaine, DNS, DHCP, fichiers, antivirus, GPO — dans une interface façon Windows | Windows Server + ses consoles | 🟢 fonctionnel |
 | ③ | **[linux-gpo](https://github.com/jonathan-pp/linux-gpo-agent)** | appliquer les stratégies de groupe sur les postes Linux | le client GPO de Windows | 🟠 en cours |
-| ④ | *contrôle à distance et inventaire* | prendre la main, agir à distance, inventorier, déployer des logiciels | PDQ Deploy / Inventory, assistance à distance | ⚪ à venir |
+| ④ | **Portail Support** (dans la Console Annuaire) | inventaire des postes, déployer des logiciels, agir à distance, tickets, avec trois niveaux de techniciens | PDQ Deploy / Inventory, assistance à distance | 🟠 en test |
 
 > PXE Deploy et la Console Annuaire sont encore en dépôt privé le temps de les finaliser ; linux-gpo est déjà public.
 
@@ -120,14 +120,17 @@ scripts, lecteurs réseau…
   </tr>
 </table>
 
-### ④ La suite — maintenir les postes à distance
+### ④ Maintenir les postes à distance
 
-La dernière brique manquante pour se passer complètement des outils payants :
+La dernière brique pour se passer des outils payants existe maintenant dans la Console Annuaire, sous forme d’un portail pour les techniciens, avec des droits par niveau (assistance, technicien, administrateur du support) et par unité d’organisation :
 
-- **prise en main à distance** d’un poste Windows ou Linux pour le support ;
-- **actions à distance** : lancer un script, installer ou retirer un logiciel, redémarrer, sur un poste ou un groupe ;
-- **inventaire** matériel et logiciel du parc ;
-- **mises à jour** suivies et déployées.
+- **inventaire** matériel et logiciel du parc, avec des collections qui se mettent à jour toutes seules ;
+- **déploiement** d’applications et de lots depuis la bibliothèque de PXE Deploy, désinstallation, mises à jour, antivirus, redémarrage ;
+- **actions à distance** : commande ou script, programmes lancés, services, message à l’utilisateur ;
+- **prise en main** d’un poste Windows avec ou sans l’accord de l’utilisateur ;
+- **tickets** et fiches « comment faire ».
+
+Un agent léger (Windows et Linux) s’installe sur chaque poste, par une stratégie de groupe pour les postes du domaine. Il n’accepte que le certificat du serveur. L’agent Windows reste à éprouver sur de vrais postes.
 
 ---
 
@@ -141,7 +144,7 @@ La dernière brique manquante pour se passer complètement des outils payants :
 | Règles appliquées aux postes Windows | GPO | GPO (inchangées) |
 | Règles appliquées aux postes Linux | — | linux-gpo |
 | Partages de fichiers et antivirus | Serveur de fichiers + Defender | Samba + ClamAV |
-| Maintenance à distance, inventaire | PDQ Deploy / Inventory, Quick Assist | à venir |
+| Maintenance à distance, inventaire | PDQ Deploy / Inventory, Quick Assist | Portail Support (en test) |
 | **Licences** | Windows Server + CAL par utilisateur ou appareil | **aucune** |
 
 ## Feuille de route
